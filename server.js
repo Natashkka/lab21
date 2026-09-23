@@ -5,14 +5,18 @@ const app = express();
 // middleware
 app.use(express.json());
 
+const authMiddleware = require('./middleware/auth');
+
 // маршруты
 const testsRoutes = require('./routes/tests.routes');
 app.use('/tests', testsRoutes);
 
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes); //новый файл подключаем
+
 // генерация «ИИ» — отдельный маршрут
 const testsController = require('./controllers/tests.controller');
-app.post('/generate', testsController.generateTest);
-
+app.post('/generate', authMiddleware, testsController.generateTest);
 // 404 — маршрут не найден
 app.use((req, res) => {
     res.status(404).json({
@@ -41,4 +45,7 @@ app.listen(PORT, () => {
     console.log(` PUT    /tests/:id     - обновить тест`);
     console.log(` DELETE /tests/:id     - удалить тест`);
     console.log(` POST   /generate      - генерация ИИ`);
+    console.log(` POST   /auth/register     - регистрация`);
+    console.log(`📋 POST   /auth/login         - вход`);
+    console.log(`📋 GET    /auth/profile       - профиль (защищённый)`);
 });

@@ -1,5 +1,5 @@
 // controllers/tests.controller.js
-const { Test } = require('../models');
+const { Test, User } = require('../models');
 
 // GET /tests — все тесты
 exports.getAllTests = async (req, res) => {
@@ -75,16 +75,45 @@ exports.deleteTest = async (req, res) => {
     }
 };
 
-// POST /generate — генерация теста «ИИ»
+// POST /generate — генерация теста «ИИ» с лимитом
 exports.generateTest = async (req, res) => {
     try {
         const { topic, questionCount = 3 } = req.body;
+
+        // 1. Валидация
         if (!topic) {
             return res.status(400).json({ success: false, message: 'Укажите тему' });
         }
         if (questionCount < 1 || questionCount > 20) {
             return res.status(400).json({ success: false, message: 'Количество вопросов от 1 до 20' });
         }
+
+        // 2. Получить пользователя
+        const user = await User.findByPk(req.user.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
+        }
+
+        // 3. Сброс счётчика при новом дне
+        const today = new Date().toISOString().split('T')[0];   // YYYY-MM-DD
+        if (user.lastGenerationDate !== today) {
+            user.aiGenerationsToday = 0;
+            user.lastGenerationDate = today;
+        }
+
+        // 4. Проверка лимита (не для админов)
+        if (user.role !== 'admin' && user.aiGenerationsToday >= 3) {
+            return res.status(429).json({
+                success: false,
+                message: 'Лимит ИИ-генераций исчерпан (3 в день). Попробуйте завтра'
+            });
+        }
+
+        // 5. Увеличить счётчик
+        user.aiGenerationsToday += 1;
+        await user.save();
+
+        // 6. Генерация (как было)
         const questions = [];
         for (let i = 0; i < questionCount; i++) {
             questions.push({
@@ -93,13 +122,20 @@ exports.generateTest = async (req, res) => {
                 correctAnswer: 0
             });
         }
+
         const newTest = await Test.create({
             title: `Тест: ${topic}`,
             topic,
             questions,
             generatedByAI: true
         });
-        res.status(201).json({ success: true, message: 'Тест сгенерирован', data: newTest });
+
+        res.status(201).json({
+            success: true,
+            message: 'Тест сгенерирован',
+            data: newTest,
+            remainingToday: user.role === 'admin' ? 'unlimited' : 3 - user.aiGenerationsToday
+        });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
