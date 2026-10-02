@@ -1,0 +1,49 @@
+<h2>Новый тест</h2>
+
+<form method="POST" action="/add?auth=1">
+
+  <label>
+    Тема:<br>
+    <input type="text" name="topic" required>
+  </label>
+  <br><br>
+
+  <label>
+    Вопрос:<br>
+    <input type="text" name="question" required size="60">
+  </label>
+  <br><br>
+
+  <label>
+    Вариант 1:<br>
+    <input type="text" name="opt1" required>
+  </label>
+  <br><br>
+
+  <label>
+    Вариант 2:<br>
+    <input type="text" name="opt2" required>
+  </label>
+  <br><br>
+
+  <label>
+    Вариант 3:<br>
+    <input type="text" name="opt3">
+  </label>
+  <br><br>
+
+  <label>
+    Вариант 4:<br>
+    <input type="text" name="opt4">
+  </label>
+  <br><br>
+
+  <label>
+    Индекс правильного (0–3):
+    <input type="number" name="answer" min="0" max="3" value="0">
+  </label>
+  <br><br>
+
+  <button type="submit">Сохранить</button>
+
+</form>

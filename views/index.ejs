@@ -1,0 +1,13 @@
+<h2>Список тестов (<%= items.length %>)</h2>
+
+<table border="1" cellpadding="8">
+  <tr><th>ID</th><th>Тема</th><th>Вопрос</th><th></th></tr>
+  <% items.forEach(item => { %>
+    <tr>
+      <td><%= item.id %></td>
+      <td><%= item.topic %></td>
+      <td><%= item.question %></td>
+      <td><a href="/item/<%= item.id %>">Открыть</a></td>
+    </tr>
+  <% }) %>
+</table>

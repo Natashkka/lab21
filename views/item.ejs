@@ -1,0 +1,9 @@
+<h2>Тема: <%= item.topic %></h2>
+<p><b>Вопрос:</b> <%= item.question %></p>
+<h3>Варианты ответа:</h3>
+<ol>
+  <% item.options.forEach((opt, i) => { %>
+    <li><%= opt %> <% if (i === item.answer) { %><b style="color:green;">✅</b><% } %></li>
+  <% }) %>
+</ol>
+<a href="/">← Назад к списку</a>

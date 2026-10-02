@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    color: #d6d6d6;
+    background: #1e1e1e;
+}
+
+header {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 20px;
+}
+
+header h1 {
+    margin: 0 0 12px;
+    font-size: 27px;
+    font-weight: normal;
+    color: #f0f0f0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #383838;
+}
+
+nav a {
+    margin-right: 14px;
+    color: #d6d6d6;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav .user {
+    margin-left: auto;
+    color: #aaa;
+    font-size: 14px;
+}
+
+main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 25px;
+    background: #252525;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+}
+
+main h2 {
+    margin: 0 0 18px;
+    font-size: 23px;
+    font-weight: normal;
+    color: #f0f0f0;
+}
+
+main h3 {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ddd;
+}
+
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    background: #252525;
+}
+
+th,
+td {
+    padding: 10px 12px;
+    border: 1px solid #444;
+    text-align: left;
+}
+
+th {
+    background: #303030;
+    color: #f0f0f0;
+    font-weight: normal;
+}
+
+tbody tr:nth-child(even) {
+    background: #292929;
+}
+
+tbody tr:hover {
+    background: #333;
+}
+
+td a {
+    color: #d6d6d6;
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+form {
+    max-width: 500px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 14px;
+    color: #ccc;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    margin-top: 5px;
+    padding: 9px 10px;
+    background: #1f1f1f;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 3px;
+    font-size: 15px;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus {
+    outline: none;
+    border-color: #6ea8fe;
+}
+
+form br {
+    display: none;
+}
+
+button {
+    padding: 9px 18px;
+    border: 1px solid #4f83cc;
+    border-radius: 3px;
+    background: #356aa0;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #417db8;
+}
+
+ol {
+    padding-left: 25px;
+}
+
+ol li {
+    margin-bottom: 8px;
+    padding: 7px 10px;
+    background: #2c2c2c;
+    border: 1px solid #404040;
+    border-radius: 3px;
+}
+
+ol li b {
+    margin-left: 6px;
+    color: #65c878;
+}
+
+main > a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #d6d6d6;
+    text-decoration: none;
+}
+
+main > a:hover {
+    text-decoration: underline;
+}
+
+main p {
+    color: #b8b8b8;
+}
+
+code {
+    padding: 3px 7px;
+    background: #1c1c1c;
+    border: 1px solid #444;
+    border-radius: 3px;
+    color: #e58b8b;
+    font-family: Consolas, monospace;
+}
+
+/* Страница 404 */
+.error-page {
+    max-width: 520px;
+    margin: 55px auto;
+    text-align: center;
+}
+
+.error-code {
+    margin-bottom: 8px;
+    font-size: 58px;
+    line-height: 1;
+    font-weight: bold;
+    color: #777;
+}
+
+.error-page h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+    color: #eee;
+}
+
+.error-page p {
+    margin: 0 0 24px;
+    color: #999;
+}
+
+.error-page a {
+    color: #d6d6d6;
+    text-decoration: none;
+}
+
+.error-page a:hover {
+    color: #6ea8fe;
+    text-decoration: underline;
+} 
+footer {
+    width: 100%;
+    max-width: 900px;
+    margin: auto auto 0;
+    padding-top: 15px;
+    border-top: 1px solid #3a3a3a;
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+}
