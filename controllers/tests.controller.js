@@ -44,17 +44,23 @@ exports.createTest = async (req, res) => {
 // PUT /tests/:id — обновить тест
 exports.updateTest = async (req, res) => {
     try {
-        const { title, topic, questions } = req.body;
+        // 1. Достаем status из запроса
+        const { title, topic, questions, status } = req.body; 
+        
         if (!title || !topic) {
             return res.status(400).json({ success: false, message: 'Укажите title и topic' });
         }
+        
         const [updated] = await Test.update(
-            { title, topic, questions },
+            // 2. Передаем status в базу данных
+            { title, topic, questions, status }, 
             { where: { id: req.params.id } }
         );
+        
         if (!updated) {
             return res.status(404).json({ success: false, message: 'Тест не найден' });
         }
+        
         const test = await Test.findByPk(req.params.id);
         res.json({ success: true, message: 'Тест обновлён', data: test });
     } catch (err) {
@@ -75,11 +81,11 @@ exports.deleteTest = async (req, res) => {
     }
 };
 
+
 // POST /generate — генерация теста «ИИ» с лимитом
 exports.generateTest = async (req, res) => {
     try {
-        const { topic, questionCount = 3 } = req.body;
-
+        const { topic, questionCount = 3, difficulty = 'easy' } = req.body;
         // 1. Валидация
         if (!topic) {
             return res.status(400).json({ success: false, message: 'Укажите тему' });
@@ -124,11 +130,12 @@ exports.generateTest = async (req, res) => {
         }
 
         const newTest = await Test.create({
-            title: `Тест: ${topic}`,
-            topic,
-            questions,
-            generatedByAI: true
-        });
+    title: topic,
+    topic,
+    questions,
+    difficulty,                    // ← добавили эту строку
+    generatedByAI: true
+});
 
         res.status(201).json({
             success: true,

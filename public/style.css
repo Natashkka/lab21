@@ -1,0 +1,207 @@
+/* ====== Общие стили ====== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 0 20px;
+  color: #2c3e50;
+  background: #f7f9fc;
+  line-height: 1.6;
+}
+
+/* ====== Шапка ====== */
+header h1 {
+  margin: 0 0 12px;
+  font-size: 26px;
+  color: #1a2b47;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 2px solid #e1e6ee;
+  margin-bottom: 24px;
+}
+
+nav a {
+  color: #0366d6;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+nav a:hover {
+  background: #e6f0ff;
+  text-decoration: none;
+}
+
+nav .user {
+  margin-left: auto;
+  font-size: 14px;
+  color: #666;
+}
+
+/* ====== Основной контент ====== */
+main {
+  background: #fff;
+  padding: 24px 28px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+main h2 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #1a2b47;
+}
+
+main h3 {
+  margin-top: 24px;
+  font-size: 18px;
+  color: #34495e;
+}
+
+/* ====== Таблицы ====== */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 14px;
+  font-size: 15px;
+}
+
+th, td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e1e6ee;
+}
+
+th {
+  background: #f0f4fa;
+  font-weight: 600;
+  color: #1a2b47;
+  border-bottom: 2px solid #d1d9e6;
+}
+
+tbody tr:hover {
+  background: #f9fbfe;
+}
+
+td a {
+  color: #0366d6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+/* ====== Формы ====== */
+form {
+  max-width: 520px;
+}
+
+form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #34495e;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 15px;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+form input:focus {
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.15);
+}
+
+form br {
+  display: none;
+}
+
+form label {
+  margin-bottom: 14px;
+}
+
+button[type="submit"],
+button {
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  background: #0366d6;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: #0253ad;
+}
+
+/* ====== Списки вариантов ====== */
+ol {
+  padding-left: 22px;
+}
+
+ol li {
+  margin: 8px 0;
+  padding: 6px 10px;
+  background: #f7f9fc;
+  border-radius: 6px;
+}
+
+ol li b {
+  margin-left: 8px;
+  color: #1f9d55;
+}
+
+/* ====== Ссылки назад ====== */
+main > a {
+  display: inline-block;
+  margin-top: 20px;
+  color: #0366d6;
+  text-decoration: none;
+}
+
+main > a:hover {
+  text-decoration: underline;
+}
+
+/* ====== Подвал ====== */
+footer {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #e1e6ee;
+  color: #7a8899;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ====== Строка кода ====== */
+code {
+  background: #eef1f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: Consolas, monospace;
+  font-size: 14px;
+  color: #c0392b;
+}

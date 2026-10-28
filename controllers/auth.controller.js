@@ -3,12 +3,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-// POST /auth/register — регистрация
 exports.register = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // 1. Валидация
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
@@ -16,7 +14,6 @@ exports.register = async (req, res) => {
             });
         }
 
-        // 2. Проверка уникальности email
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
             return res.status(400).json({
@@ -25,13 +22,10 @@ exports.register = async (req, res) => {
             });
         }
 
-        // 3. Хеширование пароля
         const passwordHash = await bcrypt.hash(password, 10);
 
-        // 4. Создание пользователя
         const user = await User.create({ email, passwordHash });
 
-        // 5. Ответ 201
         res.status(201).json({
             success: true,
             message: 'Пользователь зарегистрирован',
@@ -49,7 +43,6 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // 1. Валидация
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
@@ -57,7 +50,6 @@ exports.login = async (req, res) => {
             });
         }
 
-        // 2. Поиск пользователя по email
         const user = await User.findOne({ where: { email } });
         if (!user) {
             return res.status(401).json({
@@ -66,7 +58,6 @@ exports.login = async (req, res) => {
             });
         }
 
-        // 3. Сравнение пароля с хешем
         const isValid = await bcrypt.compare(password, user.passwordHash);
         if (!isValid) {
             return res.status(401).json({
@@ -75,14 +66,12 @@ exports.login = async (req, res) => {
             });
         }
 
-        // 4. Генерация JWT
         const token = jwt.sign(
-    { id: user.id, email: user.email, role: user.role },   // ← добавь role
+    { id: user.id, email: user.email, role: user.role }, 
     process.env.JWT_SECRET,
     { expiresIn: '1h' }
 );
 
-        // 5. Ответ с токеном
         res.json({
             success: true,
             message: 'Вход выполнен',
@@ -93,7 +82,6 @@ exports.login = async (req, res) => {
     }
 };
 
-// GET /auth/profile — данные текущего пользователя
 exports.getProfile = async (req, res) => {
     try {
         const user = await User.findByPk(req.user.id, {

@@ -1,9 +1,26 @@
 // server.js
+require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 // middleware
+app.use(cors());
 app.use(express.json());
+
+// --- ПОДКЛЮЧЕНИЕ К MONGODB ---
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected successfully! 🎉'))
+  .catch(err => console.error('MongoDB connection error:', err));
+// -------
+
+// маршруты MongoDB
+const mongoTestRoutes = require('./routes/mongoTests.routes');
+app.use('/mongo-tests', mongoTestRoutes);
 
 const authMiddleware = require('./middleware/auth');
 
@@ -48,4 +65,8 @@ app.listen(PORT, () => {
     console.log(` POST   /auth/register     - регистрация`);
     console.log(`📋 POST   /auth/login         - вход`);
     console.log(`📋 GET    /auth/profile       - профиль (защищённый)`);
+    console.log(`-----------------------------------`);
+    console.log(`📋 MongoDB CRUD:`);
+    console.log(` GET    /mongo-tests   - все тесты (Mongo)`);
+    console.log(` POST   /mongo-tests   - создать тест (Mongo)`);
 });
