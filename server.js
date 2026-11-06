@@ -17,11 +17,6 @@ app.set('views', './views');
 app.use(cors());
 app.use(express.json());
 
-
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected successfully! '))
-  .catch(err => console.error('MongoDB connection error:', err));
-
 const mongoTestRoutes = require('./routes/mongoTests.routes');
 app.use('/mongo-tests', mongoTestRoutes);
 
@@ -103,19 +98,31 @@ io.on('connection', (socket) => {
 });
 
 const PORT = 3000;
-server.listen(PORT, () => {
-    console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
-    console.log(`📋 GET    /tests         - все тесты`);
-    console.log(` GET    /tests/:id     - тест по ID`);
-    console.log(` POST   /tests         - создать тест`);
-    console.log(` PUT    /tests/:id     - обновить тест`);
-    console.log(` DELETE /tests/:id     - удалить тест`);
-    console.log(` POST   /generate      - генерация ИИ`);
-    console.log(` POST   /auth/register     - регистрация`);
-    console.log(`📋 POST   /auth/login         - вход`);
-    console.log(`📋 GET    /auth/profile       - профиль (защищённый)`);
-    console.log(`-----------------------------------`);
-    console.log(`📋 MongoDB CRUD:`);
-    console.log(` GET    /mongo-tests   - все тесты (Mongo)`);
-    console.log(` POST   /mongo-tests   - создать тест (Mongo)`);
-});
+
+const startServer = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB connected successfully! 🎉');
+    
+    server.listen(PORT, () => {
+      console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
+      console.log(`📋 GET    /tests         - все тесты`);
+      console.log(` GET    /tests/:id     - тест по ID`);
+      console.log(` POST   /tests         - создать тест`);
+      console.log(` PUT    /tests/:id     - обновить тест`);
+      console.log(` DELETE /tests/:id     - удалить тест`);
+      console.log(` POST   /generate      - генерация ИИ`);
+      console.log(` POST   /auth/register     - регистрация`);
+      console.log(`📋 POST   /auth/login         - вход`);
+      console.log(`📋 GET    /auth/profile       - профиль (защищённый)`);
+      console.log(`-----------------------------------`);
+      console.log(`📋 MongoDB CRUD:`);
+      console.log(` GET    /mongo-tests   - все тесты (Mongo)`);
+      console.log(` POST   /mongo-tests   - создать тест (Mongo)`);
+    });
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+  }
+};
+
+startServer();
