@@ -1,6 +1,5 @@
 const TestMongo = require('../models/TestMongo');
 
-// Получить все тесты
 exports.getAllTests = async (req, res) => {
   try {
     const tests = await TestMongo.find();
@@ -10,7 +9,6 @@ exports.getAllTests = async (req, res) => {
   }
 };
 
-// Получить тест по ID
 exports.getTestById = async (req, res) => {
   try {
     const test = await TestMongo.findById(req.params.id);
@@ -21,7 +19,6 @@ exports.getTestById = async (req, res) => {
   }
 };
 
-// Создать тест
 exports.createTest = async (req, res) => {
   try {
     const newTest = new TestMongo(req.body);
@@ -32,7 +29,6 @@ exports.createTest = async (req, res) => {
   }
 };
 
-// Обновить тест
 exports.updateTest = async (req, res) => {
   try {
     const updatedTest = await TestMongo.findByIdAndUpdate(
@@ -47,7 +43,6 @@ exports.updateTest = async (req, res) => {
   }
 };
 
-// Удалить тест
 exports.deleteTest = async (req, res) => {
   try {
     await TestMongo.findByIdAndDelete(req.params.id);
@@ -57,7 +52,6 @@ exports.deleteTest = async (req, res) => {
   }
 };
 
-// Добавить вопрос в тест (Часть 6)
 exports.addQuestion = async (req, res) => {
   try {
     const updatedTest = await TestMongo.findByIdAndUpdate(
@@ -72,23 +66,19 @@ exports.addQuestion = async (req, res) => {
   }
 };
 
-// Обновление конкретного вопроса внутри массива (Часть 6)
 exports.updateQuestionInTest = async (req, res) => {
   try {
     const testId = req.params.id;
-    const questionId = req.params.questionId; // ID вопроса, который хотим изменить
-    const newQuestionText = req.body.questionText; // Новый текст вопроса
+    const questionId = req.params.questionId; 
+    const newQuestionText = req.body.questionText;
 
     const updatedTest = await TestMongo.findByIdAndUpdate(
       testId,
       { 
-        // $set указывает, что именно менять. 
-        // $[elem] — это плейсхолдер для элемента массива, который мы отфильтруем ниже
         $set: { "questions.$[elem].questionText": newQuestionText } 
       },
       { 
         new: true,
-        // arrayFilters ищет нужный вопрос внутри массива по его _id
         arrayFilters: [{ "elem._id": questionId }] 
       }
     );
