@@ -48,7 +48,6 @@ export default function Chat() {
       setTypingUser('');
     });
 
-    // 2. Только теперь отправляем запрос на вход в комнату
     socket.emit('join room', currentRoom);
 
     return () => {
@@ -87,7 +86,7 @@ export default function Chat() {
   return (
     <div className="chat-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '15px' }}>
-        <h2 className="chat-title" style={{ margin: 0, border: 'none', padding: 0 }}>Обсуждение тестов (WebSocket)</h2>
+        <h2 className="chat-title" style={{ margin: 0, border: 'none', padding: 0 }}>Чат поддержки</h2>
         
         <select 
           value={currentRoom} 
